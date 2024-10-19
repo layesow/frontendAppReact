@@ -39,6 +39,9 @@ header{
             color: $text-color;
             font-weight: 500;
             margin-left: 20px;
+            &:hover{
+                color: $primary-color;
+            }
         }
         .logo{
             font-size: 1em;
@@ -255,5 +258,64 @@ footer{
                 font-size: 1.5em;
             }
         }
+    }
+}
+
+
+.section-7{
+    .hero{
+        // cree background linear-gradient
+        background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0)) , url('../images/hero.jpg');
+        min-height: 300px;
+        color: $text-white;
+        span{
+            color: $secondary-color;
+            font-size: 1.5em;
+            font-weight: 500;
+        }
+    }
+}
+
+.section-8{
+    .card{
+        border-radius: 40px;
+        img{
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+        }
+        .card-body{
+            a.title{
+                font-size: 1.5em;
+            }
+            .card-title{
+                font-size: 1.5em;
+                font-weight: 500;
+            }
+            .card-sub-title{
+                font-size: 1.3em;
+                color: $light-background;
+            }
+        }
+    }
+}
+
+.section-9{
+    .card{
+        border-radius: 30px;
+        
+        /* .card-body{
+           
+        } */
+    }
+}
+.login-form{
+    .card{
+        width: 450px;
+    }
+}
+
+.dashboard{
+    .card{
+        min-height: 400px;
     }
 }
