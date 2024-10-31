@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Header from '../header-footer/Header'
 import Footer from '../header-footer/Footer'
 
 import { useForm } from "react-hook-form"
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from './context/Auth';
 
 
 
 const Login = () => {
+    const {login} = useContext(AuthContext) // pour la navigation
+
     //navigate
     const navigate = useNavigate();
     const {
@@ -40,6 +43,8 @@ const Login = () => {
                 token:result.token,
             }
             localStorage.setItem('userInfo',JSON.stringify(userInfo))
+            login(userInfo); // pour rediriger vers admin et les info de user
+            
             //navigate
             navigate('/admin/dashboard')
         }

@@ -22,6 +22,7 @@ import Blogs from './components/frontend/Blogs';
 import ContactUs from './components/frontend/ContactUs';
 import Login from './components/backend/Login';
 import Dashboard from './components/backend/Dashboard';
+import RequireAuth from './components/header-footer/RequireAuth';
 
 
 
@@ -42,7 +43,11 @@ function App() {
           <Route  path="/admin/login" element={<Login />} />
 
 
-          <Route  path="/admin/dashboard" element={<Dashboard />} />
+          <Route  path="/admin/dashboard" element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          } />
           
         </Routes>
       </BrowserRouter>
