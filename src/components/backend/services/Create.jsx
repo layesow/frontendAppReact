@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useRef, useMemo } from 'react'
 import Footer from '../../header-footer/Footer'
 import Sidebar from '../../header-footer/Sidebar'
 import Header from '../../header-footer/Header'
@@ -6,10 +6,24 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
 import { apiUrl, token } from '../../header-footer/http'
 import { toast } from 'react-toastify';
+import JoditEditor from 'jodit-react';
 
 
 
-const Create = () => {
+
+
+
+const Create = ({placeholder}) => {
+    const editor = useRef(null);
+	const [content, setContent] = useState('');
+
+    const config = useMemo(() => ({
+            readonly: false, // all options from https://xdsoft.net/jodit/docs/,
+            placeholder: placeholder || 'Content'
+        }),
+        [placeholder]
+    );
+
     const {
         register,
         handleSubmit,
@@ -21,6 +35,8 @@ const Create = () => {
       const navigate = useNavigate()
 
     const onSubmit = async (data) => {
+        const newData = { ...data, "content":content}
+
         const rest = await fetch(apiUrl+'services',{
             'method' : 'POST',
             'headers' : {
@@ -28,7 +44,7 @@ const Create = () => {
                 'Content-Type' : 'application/json',
                 'Authorization' : `Bearer ${token()}`
             },
-            'body' : JSON.stringify(data)
+            'body' : JSON.stringify(newData)
         });
         const result = await rest.json();
         //rediriger vers la page service
@@ -38,9 +54,6 @@ const Create = () => {
         }else{
             toast.erreur(result.message)
         }
-
-        console.log(result);
-        //setServices(result.data);
     }
   return (
     <div>
@@ -101,12 +114,20 @@ const Create = () => {
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="" className='form-label'>Description</label>
-                                        <textarea
+                                        {/* <textarea
                                         placeholder='Description'
                                         {
                                             ...register("content")
                                         }
-                                         className="form-control" rows="3"></textarea>
+                                         className="form-control" rows="3"></textarea> */}
+                                        <JoditEditor
+                                            ref={editor}
+                                            value={content}
+                                            config={config}
+                                            tabIndex={1} // tabIndex of textarea
+                                            onBlur={newContent => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+                                            onChange={newContent => {}}
+                                        />
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="" className='form-label'>Status</label>
