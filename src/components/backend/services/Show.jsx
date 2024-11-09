@@ -5,6 +5,8 @@ import Footer from '../../header-footer/Footer'
 import { apiUrl, token } from '../../header-footer/http'
 //import useState et useEffect
 import { useState, useEffect } from 'react'
+//import Link
+import { Link } from 'react-router-dom'
 
 
 const Show = () => {
@@ -46,7 +48,7 @@ const Show = () => {
                             <div className="card-body p-4">
                                 <div className="d-flex justify-content-between">
                                     <h4 className="h5">Service</h4>
-                                    <a href="" className='btn btn-primary'>Ajouter service</a>
+                                    <Link to="/admin/services/create" className='btn btn-primary'>Ajouter service</Link>
                                 </div>
                                 <hr />
                                 <table className='table table-striped'>
@@ -63,7 +65,7 @@ const Show = () => {
                                         {
                                             services && services.map(service =>{
                                                 return (
-                                                    <tr>
+                                                    <tr key={service.id}>
                                                         <td>{service.id}</td>
                                                         <td>{service.title}</td>
                                                         <td>{service.slug}</td>
