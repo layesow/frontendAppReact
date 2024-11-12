@@ -16,6 +16,8 @@ import JoditEditor from 'jodit-react';
 const Create = ({placeholder}) => {
     const editor = useRef(null);
 	const [content, setContent] = useState('');
+	const [isDesable, setIsDesable] = useState(false);
+	const [imageId, setImageId] = useState(null);
 
     const config = useMemo(() => ({
             readonly: false, // all options from https://xdsoft.net/jodit/docs/,
@@ -35,7 +37,7 @@ const Create = ({placeholder}) => {
       const navigate = useNavigate()
 
     const onSubmit = async (data) => {
-        const newData = { ...data, "content":content}
+        const newData = { ...data, "content":content, "imageId":imageId}
 
         const rest = await fetch(apiUrl+'services',{
             'method' : 'POST',
@@ -55,6 +57,31 @@ const Create = ({placeholder}) => {
             toast.erreur(result.message)
         }
     }
+
+    //handleFile
+    const handleFile = async (e) => {
+        const formData = new FormData();
+        const file = e.target.files[0];
+        formData.append('image', file);
+
+         await fetch(apiUrl+'temp-images',{
+            'method' : 'POST',
+            'headers' : {
+                'Accept': 'application/json',
+                'Authorization' : `Bearer ${token()}`
+            },
+            'body' : formData
+        })
+        .then(response=>response.json())
+        .then(result =>{
+            if (result.status == false) {
+                toast.error(result.errors.image[0])
+            }else{
+                setImageId(result.data.id)
+            }
+        })
+    }
+
   return (
     <div>
         <Header/>
@@ -129,6 +156,14 @@ const Create = ({placeholder}) => {
                                             onChange={newContent => {}}
                                         />
                                     </div>
+                                    {/* pour la gestion des image */}
+                                    <div className="mb-3">
+                                        <label htmlFor="" className='form-label'>Image</label>
+                                        <input type="file"
+                                        onChange={handleFile}
+                                            className="form-control"
+                                            />
+                                    </div>
                                     <div className="mb-3">
                                         <label htmlFor="" className='form-label'>Status</label>
                                         <select className="form-select"
@@ -140,7 +175,7 @@ const Create = ({placeholder}) => {
                                             <option value="0">Inactif</option>
                                         </select>
                                     </div>
-                                    <button className="btn btn-primary">Enregistrer</button>
+                                    <button disabled={isDesable} className="btn btn-primary">Enregistrer</button>
                                 </form>
                             </div>
                         </div>
