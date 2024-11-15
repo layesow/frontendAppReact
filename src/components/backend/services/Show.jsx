@@ -4,7 +4,7 @@ import Sidebar from '../../header-footer/Sidebar'
 import Footer from '../../header-footer/Footer'
 import { apiUrl, token } from '../../header-footer/http'
 //import useState et useEffect
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 //import Link
 import { Link } from 'react-router-dom'
 
@@ -75,8 +75,8 @@ const Show = () => {
                                                             }
                                                         </td>
                                                         <td>
-                                                            <a href="" className='btn btn-sm btn-primary'>Edit</a>
-                                                            <a href="" className='btn btn-sm btn-secondary ms-2'>Sup</a>
+                                                            <Link to={`/admin/services/edit/${service.id}`} className='btn btn-sm btn-primary'>Edit</Link>
+                                                            <Link to="#" className='btn btn-sm btn-secondary ms-2'>Sup</Link>
                                                         </td>
                                                     </tr>
                                                 )

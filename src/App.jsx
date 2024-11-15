@@ -25,6 +25,7 @@ import Dashboard from './components/backend/Dashboard';
 import RequireAuth from './components/header-footer/RequireAuth';
 import {default as ShowServices} from './components/backend/services/Show';
 import {default as CreateServices} from './components/backend/services/Create';
+import {default as EditServices} from './components/backend/services/Edit';
 
 
 
@@ -58,6 +59,11 @@ function App() {
           <Route  path="/admin/services/create" element={
             <RequireAuth>
               <CreateServices />
+            </RequireAuth>
+          } />
+          <Route  path="/admin/services/edit/:id" element={
+            <RequireAuth>
+              <EditServices />
             </RequireAuth>
           } />
           

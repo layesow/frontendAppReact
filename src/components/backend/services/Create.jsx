@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react'
+import React, { useState, useRef, useMemo } from 'react';
 import Footer from '../../header-footer/Footer'
 import Sidebar from '../../header-footer/Sidebar'
 import Header from '../../header-footer/Header'
@@ -13,10 +13,11 @@ import JoditEditor from 'jodit-react';
 
 
 
+// eslint-disable-next-line react/prop-types
 const Create = ({placeholder}) => {
     const editor = useRef(null);
 	const [content, setContent] = useState('');
-	const [isDesable, setIsDesable] = useState(false);
+	const [isDisable, setIsDisable] = useState(false);
 	const [imageId, setImageId] = useState(null);
 
     const config = useMemo(() => ({
@@ -29,6 +30,7 @@ const Create = ({placeholder}) => {
     const {
         register,
         handleSubmit,
+        // eslint-disable-next-line no-unused-vars
         watch,
         formState: { errors },
       } = useForm()
@@ -81,6 +83,7 @@ const Create = ({placeholder}) => {
             }
         })
     }
+    
 
   return (
     <div>
@@ -153,6 +156,7 @@ const Create = ({placeholder}) => {
                                             config={config}
                                             tabIndex={1} // tabIndex of textarea
                                             onBlur={newContent => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+                                            // eslint-disable-next-line no-unused-vars
                                             onChange={newContent => {}}
                                         />
                                     </div>
@@ -175,8 +179,8 @@ const Create = ({placeholder}) => {
                                             <option value="0">Inactif</option>
                                         </select>
                                     </div>
-                                    <button disabled={isDesable} className="btn btn-primary">Enregistrer</button>
-                                </form>
+                                    <button disabled={isDisable} className="btn btn-primary">Enregistrer</button>
+                                    </form>
                             </div>
                         </div>
                     </div>
