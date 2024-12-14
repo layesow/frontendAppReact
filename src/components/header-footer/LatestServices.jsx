@@ -11,7 +11,7 @@ const LatestServices = () => {
 
         });
         const result = await rest.json();
-        console.log(result)
+        //console.log(result)
         setServices(result.data);
     }
 
