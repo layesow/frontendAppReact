@@ -11,7 +11,7 @@ const Sidebar = () => {
             <ul>
                 <li><Link to="/admin/dashboard">Dashboard</Link></li>
                 <li><Link to="/admin/services">Services</Link></li>
-                <li><a href="">Projets</a></li>
+                <li><Link to="/admin/projects">Projets</Link></li>
                 <li><a href="">Articles</a></li>
                 <li>
                     {/* logout */}
